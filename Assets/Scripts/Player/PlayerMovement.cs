@@ -1,24 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Config")]
     public float moveSpeed;
     public float groundDrag;
+    public float gravity = -9.81f;
+    public float groundedGravity = -1f;
     public Transform playerOrientation;
 
     //inputs
     float horizontalInput;
     float veritcalInput;
+    bool groundedPlayer;
 
     //cached
-    Vector3 movementDirection;
+    Vector3 playerVelocity = Vector3.zero;
     Rigidbody rig_body;
+    CharacterController characterController;
 
     private void Start()
     {
+        characterController = GetComponent<CharacterController>();
+
         rig_body = GetComponent<Rigidbody>();
         rig_body.freezeRotation = true;
     }
@@ -26,12 +34,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Player_Input();
+        Player_Move();
         rig_body.drag = groundDrag;
     }
 
     private void FixedUpdate()
     {
-        Player_Move();
         Speed_Control();
     }
 
@@ -43,14 +51,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void Player_Move()
     {
-        //only affect X and Z axis
+        groundedPlayer = characterController.isGrounded;
+
+        // Calculate movement direction
         Vector3 forward = new Vector3(playerOrientation.forward.x, 0f, playerOrientation.forward.z).normalized;
         Vector3 right = new Vector3(playerOrientation.right.x, 0f, playerOrientation.right.z).normalized;
+        Vector3 movementDirection = (forward * veritcalInput + right * horizontalInput).normalized;
 
-        movementDirection = forward * veritcalInput + right * horizontalInput;
+        // Apply movement only on X and Z axes
+        Vector3 move = movementDirection * moveSpeed;
 
-        rig_body.AddForce(10f * moveSpeed * movementDirection.normalized, ForceMode.Force);
+        // Handle gravity
+        if (groundedPlayer)
+        {
+            if (playerVelocity.y < 0)
+            {
+                playerVelocity.y = groundedGravity;
+            }
+        }
+        else
+        {
+            playerVelocity.y += gravity * Time.deltaTime;
+        }
 
+        Vector3 finalMove = move * Time.deltaTime;
+        finalMove.y = playerVelocity.y * Time.deltaTime;
+
+        characterController.Move(finalMove);
     }
 
     private void Speed_Control()

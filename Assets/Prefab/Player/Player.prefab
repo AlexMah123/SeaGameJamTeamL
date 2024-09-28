@@ -155,7 +155,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a9ce58ad149d274086cd746a6615577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  groundDrag: 5
+  moveSpeed: 20
+  groundDrag: 1
   playerOrientation: {fileID: 5310379083689964911}
 --- !u!135 &1863473827421647485
 SphereCollider:
