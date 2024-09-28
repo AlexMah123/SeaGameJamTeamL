@@ -7,9 +7,16 @@ public class LightSwitch : MonoBehaviour, IInteractable
 {
     [SerializeField] Light lightToTrigger;
 
-    public void Interact()
+    public void Interact(GameObject interactor)
     {
-        lightToTrigger.enabled = !lightToTrigger.enabled;
+        if(interactor.CompareTag("Player"))
+        {
+            lightToTrigger.enabled = !lightToTrigger.enabled;
+        }
+        else
+        {
+            lightToTrigger.enabled = true;
+        }
     }
 
 
