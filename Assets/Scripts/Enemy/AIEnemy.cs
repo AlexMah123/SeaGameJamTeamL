@@ -15,7 +15,7 @@ public class AIEnemy : MonoBehaviour
     [SerializeField] LayerMask interactableLayer;
 
 
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     private GameObject lastChosenWaypoint = null;
     private GameObject currentWaypoint = null;
 
@@ -57,8 +57,6 @@ public class AIEnemy : MonoBehaviour
                 yield return null;
             }
 
-            Debug.Log("Try Interact");
-
             RaycastHit[] hits;
             hits = Physics.SphereCastAll(transform.localPosition, interactRadius, transform.forward, interactRadius, interactableLayer, QueryTriggerInteraction.Collide);
 
@@ -70,7 +68,6 @@ public class AIEnemy : MonoBehaviour
 
                     if (interactableObj != null)
                     {
-                        Debug.Log("On Switch");
                         interactableObj.Interact(this.gameObject);
                     }
                 }

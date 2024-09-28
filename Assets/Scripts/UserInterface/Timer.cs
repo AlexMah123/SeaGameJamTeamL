@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
 {
     public float timeLimit = 180f; // 3 minutes (180 seconds)
     private float timeRemaining;
-    public bool timerIsRunning = false;
+    public static bool timerIsRunning = false;
     public TMP_Text timeText;
 
     // Start time at 10:00 PM
@@ -34,7 +34,6 @@ public class Timer : MonoBehaviour
                 if (timeRemaining <= timeLimit - 30f) // 60 seconds = 1 minute (simulating 1 hour)
                 {
                     IncrementHour();
-                    timeLimit -= 30f; // Reduce time limit for next hour increment
                 }
             }
             else
@@ -47,8 +46,9 @@ public class Timer : MonoBehaviour
     }
 
     // Method to increment the hour and adjust AM/PM
-    void IncrementHour()
+    public void IncrementHour()
     {
+        timeLimit -= 30f; // Reduce time limit for next hour increment
         currentHour++;
 
         // Handle transition from PM to AM and the 12-hour format
@@ -70,7 +70,7 @@ public class Timer : MonoBehaviour
     // Method to display the hour with AM/PM
     void DisplayTime(int hour)
     {
-        string formattedTime = string.Format("{0} {1}", hour, period);
+        string formattedTime = string.Format("{0}:00 {1}", hour, period);
         timeText.text = formattedTime;
     }
 
