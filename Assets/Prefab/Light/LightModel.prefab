@@ -44,8 +44,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0.33720446, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.6666013, b: 0, a: 1}
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 8053229063212188766}
   - component: {fileID: 3937257847021229099}
   - component: {fileID: 2108470586504249606}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LightModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
