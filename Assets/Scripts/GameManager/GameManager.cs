@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [Header("Player Config")]
     [SerializeField] GameObject playerObj;
     [SerializeField] GameObject playerSpawnPoint;
@@ -18,6 +20,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         if(timerManager == null)
         {
             Debug.LogError("TimerManager not referenced");
