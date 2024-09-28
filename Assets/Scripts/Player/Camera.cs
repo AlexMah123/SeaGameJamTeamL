@@ -1,0 +1,32 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+
+public class Camera : MonoBehaviour
+{
+    public float xAxis_Sens, yAxis_Sens;
+    public Transform ornt;
+
+    private float xAxis_Rot, yAxis_Rot;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void Update()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X") *Time.deltaTime * xAxis_Sens;
+        float mouseY = Input.GetAxisRaw("Mouse Y") *Time.deltaTime * yAxis_Sens;
+
+        yAxis_Rot += mouseX;
+        xAxis_Rot -= mouseY;
+        xAxis_Rot = Mathf.Clamp(xAxis_Rot,-90,90);
+
+        transform.rotation = Quaternion.Euler(xAxis_Rot,yAxis_Rot,0);
+        ornt.rotation = Quaternion.Euler(xAxis_Rot,yAxis_Rot,0);
+    }
+}
