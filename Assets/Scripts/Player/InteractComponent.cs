@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void Interact();
+    void Interact(GameObject interactor);
 }
 
 [RequireComponent(typeof(SphereCollider))]
@@ -63,7 +63,7 @@ public class InteractComponent : MonoBehaviour
     {
         if (closestInteractableObj != null)
         {
-            closestInteractableObj.GetComponent<IInteractable>().Interact();
+            closestInteractableObj.GetComponent<IInteractable>().Interact(this.gameObject);
         }
     }
 

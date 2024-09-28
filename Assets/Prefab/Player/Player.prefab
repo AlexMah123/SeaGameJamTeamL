@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 7976925230499908036}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a9ce58ad149d274086cd746a6615577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  moveSpeed: 15
   groundDrag: 1
   gravity: -39.24
   groundedGravity: -0.5
