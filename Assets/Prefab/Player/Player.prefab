@@ -187,8 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   groundDrag: 1
-  gravity: -9.81
-  groundedGravity: -1
+  gravity: -39.24
+  groundedGravity: -0.5
   playerOrientation: {fileID: 5310379083689964911}
 --- !u!135 &1863473827421647485
 SphereCollider:

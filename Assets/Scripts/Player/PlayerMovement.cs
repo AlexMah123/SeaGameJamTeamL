@@ -34,12 +34,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Player_Input();
-        Player_Move();
         rig_body.drag = groundDrag;
     }
 
     private void FixedUpdate()
     {
+        Player_Move();
         Speed_Control();
     }
 
