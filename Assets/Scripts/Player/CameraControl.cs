@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     public float xAxis_Sens, yAxis_Sens;
-    public Transform cameraOrientation;
+    public Transform playerOrientation;
 
     private float xAxis_Rot, yAxis_Rot;
 
@@ -27,6 +27,6 @@ public class CameraControl : MonoBehaviour
         xAxis_Rot = Mathf.Clamp(xAxis_Rot, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(xAxis_Rot, yAxis_Rot, 0);
-        cameraOrientation.rotation = Quaternion.Euler(0, yAxis_Rot, 0);
+        playerOrientation.rotation = Quaternion.Euler(0, yAxis_Rot, 0);
     }
 }
