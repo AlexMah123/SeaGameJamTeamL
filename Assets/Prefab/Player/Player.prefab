@@ -206,7 +206,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5152943591472850835
 MonoBehaviour:
@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c858709c401d840499d4cdaf8d156e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactPromptUI: {fileID: 0}
   interactCollider: {fileID: 1863473827421647485}
   interactableLayer:
     serializedVersion: 2

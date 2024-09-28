@@ -6,8 +6,6 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void ShowInteractPrompt();
-
     void Interact();
 }
 
@@ -15,6 +13,7 @@ public interface IInteractable
 public class InteractComponent : MonoBehaviour
 {
     [Header("Interact Configs")]
+    [SerializeField] GameObject interactPromptUI;
     [SerializeField] SphereCollider interactCollider;
     [SerializeField] LayerMask interactableLayer;
     [SerializeField] LayerMask obstacleLayer;
@@ -22,21 +21,13 @@ public class InteractComponent : MonoBehaviour
     private GameObject closestInteractableObj = null;
     private List<GameObject> interactables = new();
 
-    public event Action onInteractHide;
-
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDisable()
-    {
-        
-    }
-
-
     private void Awake()
     {
+        if (interactPromptUI == null)
+        {
+            throw new MissingReferenceException("InteractUIPrompt not assigned");
+        }
+
         interactCollider = GetComponent<SphereCollider>();
     }
 
@@ -54,12 +45,17 @@ public class InteractComponent : MonoBehaviour
     {
         if (closestInteractableObj)
         {
-            closestInteractableObj.GetComponent<IInteractable>().ShowInteractPrompt();
+            if (!interactPromptUI.activeSelf)
+            {
+                interactPromptUI.gameObject.SetActive(true);
+            }
         }
         else
         {
-            //#TODO: broadcast to turn off UI
-            onInteractHide?.Invoke();
+            if (interactPromptUI.activeSelf)
+            {
+                interactPromptUI.gameObject.SetActive(false);
+            }
         }
     }
 
