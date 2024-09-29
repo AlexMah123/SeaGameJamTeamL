@@ -26,8 +26,17 @@ public class CameraControl : MonoBehaviour
 
         var screenScaleFactor = Screen.width / (float)Screen.height;
 
-        var xSpeed = inputX * Time.deltaTime * xAxis_Sens * screenScaleFactor;
-        var ySpeed = inputY * Time.deltaTime * yAxis_Sens * screenScaleFactor;
+        float xSpeed;
+        float ySpeed;
+
+        xSpeed = inputX * Time.deltaTime * xAxis_Sens * screenScaleFactor;
+        ySpeed = inputY * Time.deltaTime * yAxis_Sens * screenScaleFactor;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+
+        xSpeed = inputX * Time.deltaTime * xAxis_Sens / 2 * screenScaleFactor;
+        ySpeed = inputY * Time.deltaTime * yAxis_Sens / 2 * screenScaleFactor;
+#endif
 
         yAxis_Rot += xSpeed;
 

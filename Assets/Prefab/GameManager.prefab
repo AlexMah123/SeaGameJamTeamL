@@ -52,6 +52,14 @@ MonoBehaviour:
   timerManager: {fileID: 0}
   endingImageObj: {fileID: 0}
   billText: {fileID: 0}
-  lightsObjList: []
+  lightsObjList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   lightsCount: 0
   caughtPrompt: {fileID: 0}

@@ -33,16 +33,16 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
+        else
+        {
+            Instance = this;
+        }
 
-        if(timerManager == null)
+        if (timerManager == null)
         {
             Debug.LogError("TimerManager not referenced");
         }
