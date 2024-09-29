@@ -5,7 +5,13 @@ using UnityEngine;
 
 public class LightSwitch : MonoBehaviour, IInteractable
 {
-    [SerializeField] Light lightToTrigger;
+    public Light lightToTrigger;
+    [SerializeField] bool isActiveOnStart = true;
+
+    private void Start()
+    {
+        lightToTrigger.enabled = isActiveOnStart;
+    }
 
     public void Interact(GameObject interactor)
     {

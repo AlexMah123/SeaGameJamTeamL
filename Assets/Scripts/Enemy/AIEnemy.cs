@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class AIEnemy : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class AIEnemy : MonoBehaviour
 
         if(waypointList.Count == 0)
         {
-            Debug.LogWarning("No waypoint assigned");
+            Debug.LogError("No waypoint assigned");
         }
     }
 
@@ -37,7 +39,10 @@ public class AIEnemy : MonoBehaviour
 
     public void StartRunning()
     {
-        StartCoroutine(FindSwitch());
+        if (waypointList.Count > 0)
+        {
+            StartCoroutine(FindSwitch());
+        }
     }
 
     public void StopRunning()
@@ -83,9 +88,16 @@ public class AIEnemy : MonoBehaviour
 
         int randomInt = Random.Range(0, waypointList.Count);
 
-        randomWaypoint = waypointList[randomInt];
+        try
+        {
+            randomWaypoint = waypointList[randomInt];
+        }
+        catch
+        {
+            Debug.LogError("Waypoint index out of range");
+        }
 
-        if(randomWaypoint != lastChosenWaypoint)
+        if (randomWaypoint != lastChosenWaypoint)
         {
             currentWaypoint = randomWaypoint;
         }
@@ -106,8 +118,6 @@ public class AIEnemy : MonoBehaviour
 
         RaycastHit ray;
         Physics.Raycast(currentWaypoint.transform.position, Vector3.down, out ray, Mathf.Infinity);
-
-        Debug.Log(ray.point);
 
         return ray.point;
     }

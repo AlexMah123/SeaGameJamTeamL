@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public interface IInteractable
@@ -33,7 +34,9 @@ public class InteractComponent : MonoBehaviour
 
     private void Update()
     {
-        UpdateInteractable();
+        // Update the closest interactable object every frame
+        SetClosestInteractable();
+        UpdateInteractPromptUI();
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -41,7 +44,7 @@ public class InteractComponent : MonoBehaviour
         }
     }
 
-    private void UpdateInteractable()
+    private void UpdateInteractPromptUI()
     {
         if (closestInteractableObj)
         {
@@ -63,41 +66,48 @@ public class InteractComponent : MonoBehaviour
     {
         if (closestInteractableObj != null)
         {
-            closestInteractableObj.GetComponent<IInteractable>().Interact(this.gameObject);
+            var interactable = closestInteractableObj.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.Interact(this.gameObject);
+            }
         }
     }
 
     private void SetClosestInteractable()
     {
-        //early return
-        if (interactables.Count <= 0)
+        if (interactables.Count == 0)
         {
             closestInteractableObj = null;
             return;
         }
 
-        //cache
         float closestDistance = Mathf.Infinity;
+        GameObject newClosest = null;
 
         foreach (GameObject interactableObj in interactables)
         {
-            RaycastHit obstacleHit;
             Vector3 directionToInteractable = interactableObj.transform.position - transform.position;
 
-            //check if any obstacle between them.
-            if (Physics.Raycast(transform.position, directionToInteractable, out obstacleHit, directionToInteractable.magnitude, obstacleLayer))
+            // Raycast to check for obstacles between the player and interactable
+            if (Physics.Raycast(transform.position, directionToInteractable, out RaycastHit obstacleHit, directionToInteractable.magnitude, obstacleLayer))
             {
-                //if hit an obstacle, skip
-                continue;
+                continue; // Skip if an obstacle is hit
             }
 
-            float distance = Vector3.Distance(transform.position, interactableObj.transform.position);
+            float distance = directionToInteractable.magnitude;
 
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestInteractableObj = interactableObj;
+                newClosest = interactableObj;
             }
+        }
+
+        // Only update the closest interactable if it's changed
+        if (newClosest != closestInteractableObj)
+        {
+            closestInteractableObj = newClosest;
         }
     }
 
@@ -108,8 +118,13 @@ public class InteractComponent : MonoBehaviour
         if (interactable != null)
         {
             interactables.Add(collision.gameObject);
-            SetClosestInteractable();
+            SetClosestInteractable(); 
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        SetClosestInteractable();
     }
 
     private void OnTriggerExit(Collider collision)
@@ -119,7 +134,8 @@ public class InteractComponent : MonoBehaviour
         if (interactable != null)
         {
             interactables.Remove(collision.gameObject);
-            SetClosestInteractable();
+            SetClosestInteractable(); 
         }
     }
 }
+
