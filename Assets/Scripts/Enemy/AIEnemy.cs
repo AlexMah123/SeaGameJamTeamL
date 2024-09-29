@@ -21,6 +21,8 @@ public class AIEnemy : MonoBehaviour
     private GameObject lastChosenWaypoint = null;
     private GameObject currentWaypoint = null;
 
+    Coroutine coroutine = null;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -41,19 +43,34 @@ public class AIEnemy : MonoBehaviour
     {
         if (waypointList.Count > 0)
         {
-            StartCoroutine(FindSwitch());
+            agent.isStopped = false;
+            coroutine = StartCoroutine(FindSwitch());
+
+            SFXManager.Instance.PlaySoundFXClip("ChildLaughter", transform);
         }
     }
 
     public void StopRunning()
     {
-        StopCoroutine(FindSwitch());
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+
+        agent.isStopped = true;
+        agent.ResetPath();
     }
 
     IEnumerator FindSwitch()
     {
         while (true)
         {
+            if(agent.isStopped)
+            {
+                yield break;
+            }
+
             Vector3 nextLocation = GetNextWaypointLocation();
             agent.SetDestination(nextLocation);
 

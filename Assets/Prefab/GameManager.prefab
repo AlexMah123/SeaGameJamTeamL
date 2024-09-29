@@ -48,5 +48,10 @@ MonoBehaviour:
   playerSpawnPoint: {fileID: 0}
   kidObj: {fileID: 0}
   kidSpawnPoint: {fileID: 0}
-  cooldownTimer: 2
+  cooldownTimer: 15
   timerManager: {fileID: 0}
+  endingImageObj: {fileID: 0}
+  billText: {fileID: 0}
+  lightsObjList: []
+  lightsCount: 0
+  caughtPrompt: {fileID: 0}

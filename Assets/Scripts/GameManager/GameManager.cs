@@ -26,8 +26,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Lights Data")]
     [SerializeField] List<GameObject> lightsObjList;
-
     [SerializeField] int lightsCount;
+
+    [Header("CaughtKid Config")]
+    [SerializeField] GameObject caughtPrompt;
 
     private void Awake()
     {
@@ -96,12 +98,11 @@ public class GameManager : MonoBehaviour
     }
 
     [ContextMenu("GameManager/SimulateCaughtKid")]
-    void CaughtKid()
+    public IEnumerator CaughtKid()
     {
         //stop kid running, reset and invoke a timer to continue running
-        kidObj.StopRunning();
         kidObj.agent.Warp(kidSpawnPoint.transform.position);
-        kidObj.Invoke(nameof(kidObj.StartRunning), cooldownTimer);
+        kidObj.StopRunning();
 
         //reset player
         CharacterController characterController = playerObj.GetComponent<CharacterController>();
@@ -112,6 +113,12 @@ public class GameManager : MonoBehaviour
 
         //increment hour
         timerManager.IncrementHour();
+        caughtPrompt.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(cooldownTimer);
+
+        kidObj.StartRunning();
+        caughtPrompt.gameObject.SetActive(false);
     }
 
 }

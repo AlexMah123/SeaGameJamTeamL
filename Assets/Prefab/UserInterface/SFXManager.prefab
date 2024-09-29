@@ -62,12 +62,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffects:
-  - groupID: ButtonClick
+  - groupID: Footstep
     clips:
-    - {fileID: 8300000, guid: 30dbace5a2c80ef4a9f824e428248b4a, type: 3}
+    - {fileID: 8300000, guid: 6464bb7f99c6b894e8d8b800062e3fc1, type: 3}
+    - {fileID: 8300000, guid: 7e7b92763454ee14096efb93d4a481a1, type: 3}
   - groupID: SceneTransition
     clips:
     - {fileID: 8300000, guid: 087a418ec14af5e41868ba1906dfbe6b, type: 3}
+  - groupID: LightBuzz
+    clips:
+    - {fileID: 8300000, guid: 173075646d116fe4bba98f0749915bdd, type: 3}
+  - groupID: ChildLaughter
+    clips:
+    - {fileID: 8300000, guid: bf2fc24fc5d904c4c8d29c4a7cbe2195, type: 3}
+  - groupID: LightSwitch
+    clips:
+    - {fileID: 8300000, guid: 8bebc80327fc831469376dad82dd130f, type: 3}
+    - {fileID: 8300000, guid: fd1554e1997c8b449b55864a14e29ac8, type: 3}
+  - groupID: ButtonClick
+    clips:
+    - {fileID: 8300000, guid: 30dbace5a2c80ef4a9f824e428248b4a, type: 3}
 --- !u!82 &8492795355069724633
 AudioSource:
   m_ObjectHideFlags: 0
@@ -75,7 +89,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9201892153381495210}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -3547977001523914712, guid: cc46d98472662774c91995c3f7e41e29,
     type: 2}

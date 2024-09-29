@@ -6,6 +6,7 @@ using UnityEngine;
 public class LightSwitch : MonoBehaviour, IInteractable
 {
     public Light lightToTrigger;
+    [SerializeField] AudioSource lightBuzzSource;
     [SerializeField] bool isActiveOnStart = true;
 
     private void Start()
@@ -23,7 +24,10 @@ public class LightSwitch : MonoBehaviour, IInteractable
         {
             lightToTrigger.enabled = true;
         }
-    }
 
+        lightBuzzSource.enabled = lightToTrigger.enabled;
+
+        SFXManager.Instance.PlaySoundFXClip("LightSwitch", transform);
+    }
 
 }

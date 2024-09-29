@@ -12,21 +12,20 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float groundedGravity = -1f;
     public Transform playerOrientation;
-
+   
     //inputs
     float horizontalInput;
     float veritcalInput;
     bool groundedPlayer;
 
     //cached
-    Vector3 playerVelocity = Vector3.zero;
     Rigidbody rig_body;
+    Vector3 playerVelocity = Vector3.zero;
     CharacterController characterController;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
-
         rig_body = GetComponent<Rigidbody>();
         rig_body.freezeRotation = true;
     }
