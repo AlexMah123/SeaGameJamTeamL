@@ -6,7 +6,8 @@ using TMPro;
 
 public class TimerManager : MonoBehaviour
 {
-    public float timeLimit = 180f; // 3 minutes
+    public float timeLimitSeconds = 180f; 
+    public float timeSecondsPerHour = 30f;
     public float timeRemaining;
     public static bool timerIsRunning = false;
     public TMP_Text timeText;
@@ -17,7 +18,7 @@ public class TimerManager : MonoBehaviour
 
     void Start()
     {
-        timeRemaining = timeLimit;
+        timeRemaining = timeLimitSeconds;
         timerIsRunning = true;
         DisplayTime(currentHour);
     }
@@ -31,7 +32,7 @@ public class TimerManager : MonoBehaviour
                 timeRemaining -= Time.deltaTime;
 
                 // Check if a whole hour has passed
-                if (timeRemaining <= timeLimit - 30f) // 60 seconds = 1 minute (simulating 1 hour)
+                if (timeRemaining <= timeLimitSeconds - timeSecondsPerHour)
                 {
                     IncrementHour();
                 }
@@ -46,7 +47,7 @@ public class TimerManager : MonoBehaviour
 
     public void IncrementHour()
     {
-        timeLimit -= 30f; // Reduce time limit for next hour increment
+        timeLimitSeconds -= timeSecondsPerHour; // Reduce time limit for next hour increment
         currentHour++;
 
         // Handle transition from PM to AM and the 12-hour format
