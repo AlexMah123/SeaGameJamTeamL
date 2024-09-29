@@ -24,8 +24,10 @@ public class CameraControl : MonoBehaviour
         inputX = Mathf.Clamp(inputX, -1, 1);
         inputY = Mathf.Clamp(inputY, -1, 1);
 
-        var xSpeed = inputX * Time.deltaTime * xAxis_Sens;
-        var ySpeed = inputY * Time.deltaTime * yAxis_Sens;
+        var screenScaleFactor = Screen.width / (float)Screen.height;
+
+        var xSpeed = inputX * Time.deltaTime * xAxis_Sens * screenScaleFactor;
+        var ySpeed = inputY * Time.deltaTime * yAxis_Sens * screenScaleFactor;
 
         yAxis_Rot += xSpeed;
 
