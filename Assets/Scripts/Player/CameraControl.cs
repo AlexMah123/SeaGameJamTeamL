@@ -18,12 +18,18 @@ public class CameraControl : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * xAxis_Sens;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * yAxis_Sens;
+        float inputX = Input.GetAxisRaw("Mouse X");
+        float inputY = Input.GetAxisRaw("Mouse Y");
 
-        yAxis_Rot += mouseX;
+        inputX = Mathf.Clamp(inputX, -1, 1);
+        inputY = Mathf.Clamp(inputY, -1, 1);
 
-        xAxis_Rot -= mouseY;
+        var xSpeed = inputX * Time.deltaTime * xAxis_Sens;
+        var ySpeed = inputY * Time.deltaTime * yAxis_Sens;
+
+        yAxis_Rot += xSpeed;
+
+        xAxis_Rot -= ySpeed;
         xAxis_Rot = Mathf.Clamp(xAxis_Rot, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(xAxis_Rot, yAxis_Rot, 0);

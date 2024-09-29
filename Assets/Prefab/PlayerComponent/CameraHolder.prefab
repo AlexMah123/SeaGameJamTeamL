@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1a304e6815c4c46b9b2a833d655608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xAxis_Sens: 350
-  yAxis_Sens: 350
-  cameraOrientation: {fileID: 0}
+  xAxis_Sens: 400
+  yAxis_Sens: 400
+  playerOrientation: {fileID: 0}
 --- !u!1 &9148418217996759027
 GameObject:
   m_ObjectHideFlags: 0
